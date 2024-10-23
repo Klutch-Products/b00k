@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\SubscriptionController;
-use Illuminate\Routing\Route;
+
 
 Route::get('/', function () {
     return view('app');
