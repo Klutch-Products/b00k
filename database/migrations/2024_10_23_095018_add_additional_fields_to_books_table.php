@@ -6,32 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->string('isbn')->nullable();
-            $table->date('publication_date')->nullable();
-            $table->string('category')->nullable();
-            $table->integer('pages')->nullable();
-            $table->string('cover_image')->nullable();
-            // If description doesn't exist
-            if (!Schema::hasColumn('books', 'description')) {
-                $table->text('description')->nullable();
-            }
+            $table->string('isbn', 13)->nullable()->after('description');
+            $table->date('publication_date')->nullable()->after('isbn');
+            $table->string('category')->nullable()->after('publication_date');
+            $table->integer('pages')->nullable()->after('category');
+            $table->string('cover_image')->nullable()->after('pages');
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->dropColumn([
-                'isbn',
-                'publication_date',
-                'category',
-                'pages',
-                'cover_image',
-                'description'
-            ]);
+            $table->dropColumn(['isbn', 'publication_date', 'category', 'pages', 'cover_image']);
         });
     }
 };
