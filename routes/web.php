@@ -1,15 +1,26 @@
 <?php
 
+use App\Http\Controllers\SubscriptionController;
+use Illuminate\Routing\Route;
+
 Route::get('/', function () {
     return view('app');
 });
 
 
+// Email Route - Subscribe
+Route::post('/subscribe/{publisher}', [SubscriptionController::class,
+    'subscribe']);
+// Download PDF
+Route::post('/download-pdf/{book}', [SubscriptionController::class,
+    'downloadPdf']);
 
 
 
 
 
+
+// ===============================================
 //
 //use Illuminate\Support\Facades\Route;
 //use App\Http\Controllers\BookController;
@@ -35,3 +46,4 @@ Route::get('/', function () {
 //    return view('contact');
 //})->name('contact');
 //
+// ==========================
