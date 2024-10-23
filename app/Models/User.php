@@ -17,10 +17,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    use HasFactory;
+
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'funds'
     ];
 
     /**
@@ -43,6 +48,9 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'funds' => 'float',
         ];
     }
+
+
 }
