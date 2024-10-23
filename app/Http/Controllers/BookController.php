@@ -4,92 +4,87 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
-/**
- *
- */
-class BookController extends Controller
+class BookController extends BaseController
 {
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
-     */
-    public function index()
+    public function index(): View
     {
         $books = Book::latest()->paginate(10);
         return view('books.index', compact('books'));
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
-     */
-    public function create()
+    public function create(): View
     {
         return view('books.create');
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
             'description' => 'nullable',
-            'published_at' => 'nullable|date',
+            'isbn' => 'nullable|max:13',
+            'publication_date' => 'nullable|date',
+            'category' => 'nullable',
+            'pages' => 'nullable|integer',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        Book::create($validated);
+        if ($request->hasFile('cover_image')) {
+            $validated['cover_image'] = $this->storeImage($request->file('cover_image'), $validated['title']);
+        }
 
-        return redirect()->route('books.index')->with('success', 'Book created successfully.');
+        $book = Book::create($validated);
+
+        return redirect()->route('books.show', $book)
+            ->with('success', 'Book created successfully');
     }
 
-    /**
-     * @param Book $book
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
-     */
-    public function show(Book $book)
+    public function show(Book $book): View
     {
         return view('books.show', compact('book'));
     }
 
-    /**
-     * @param Book $book
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
-     */
-    public function edit(Book $book)
+    public function edit(Book $book): View
     {
         return view('books.edit', compact('book'));
     }
 
-    /**
-     * @param Request $request
-     * @param Book $book
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, Book $book): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
             'description' => 'nullable',
-            'published_at' => 'nullable|date',
+            'isbn' => 'nullable|max:13',
+            'publication_date' => 'nullable|date',
+            'category' => 'nullable',
+            'pages' => 'nullable|integer',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        if ($request->hasFile('cover_image')) {
+            $validated['cover_image'] = $this->storeImage(
+                $request->file('cover_image'),
+                $validated['title'],
+                $book->cover_image
+            );
+        }
 
         $book->update($validated);
 
-        return redirect()->route('books.index')->with('success', 'Book updated successfully.');
+        return redirect()->route('books.show', $book)
+            ->with('success', 'Book updated successfully');
     }
 
-    /**
-     * @param Book $book
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Book $book)
+    public function destroy(Book $book): RedirectResponse
     {
         $book->delete();
 
-        return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
+        return redirect()->route('books.index')
+            ->with('success', 'Book deleted successfully');
     }
 }
