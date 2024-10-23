@@ -52,6 +52,4 @@ class User extends Authenticatable
             'funds' => 'float',
         ];
     }
-
-
 }

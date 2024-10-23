@@ -5,16 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- *
- */
 class Book extends Model
 {
     use HasFactory;
 
-    /**
-     * @var string[]
-     */
     protected $fillable = [
         'title',
         'author',
@@ -23,27 +17,36 @@ class Book extends Model
         'publication_date',
         'category',
         'pages',
-        'cover_image'
+        'cover_image',
+        'publisher_id',
+        'pdf_path'
     ];
 
-    /**
-     * @var string[]
-     */
     protected $casts = [
         'publication_date' => 'date',
         'pages' => 'integer',
     ];
 
-    // Helper method to get cover image URL
-
-    /**
-     * @return string|null
-     */
     public function getCoverImageUrlAttribute()
     {
         if ($this->cover_image) {
             return asset('storage/' . $this->cover_image);
         }
         return null;
+    }
+
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

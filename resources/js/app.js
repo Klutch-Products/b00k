@@ -1,2 +1,11 @@
-import './bootstrap.js'
-import 'jquery'
+import './bootstrap.js';
+import 'jquery';
+
+/******
+ CUSTOM JAVASCRIPT
+
+ *****/
+
+
+
+
