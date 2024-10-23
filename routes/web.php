@@ -48,9 +48,17 @@ use Inertia\Inertia;
 
 // PRODUCT REVIEW  SITE -
 //================== VERSION 1 ================
-Route::get('/', function () {
-    return Inertia::render('ProductReview');
+//Route::get('/', function () {
+//    return Inertia::render('ProductReview');
+//});
+//
+
+// ==============================
+// BOOKSTORE
+Route::get('/', function(){
+    return view('/books/index');
 });
+
 
 
 
