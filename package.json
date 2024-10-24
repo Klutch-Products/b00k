@@ -18,6 +18,11 @@
     "dependencies": {
         "@heroicons/vue": "^2.1.5",
         "jquery": "^3.7.1",
-        "ziggy-js": "^2.3.1"
+        "ziggy-js": "^2.3.1",
+        "music-metadata": "^10.5.1",
+        "music-automaton": "^1.0.1",
+        "web-audio-oscillators": "^2.0.0",
+        "web-audio-sampler": "^1.0.1",
+        "puppeteer": "^23.6.0"
     }
 }
