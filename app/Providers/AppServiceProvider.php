@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\NewBookSubscribed;
+use App\Listeners\SendSlackNotification;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +14,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
+        $listen = [
+            NewBookSubscribed::class => [
+                SendSlackNotification::class,
+            ],
+
+
+        ];
     }
 
     /**

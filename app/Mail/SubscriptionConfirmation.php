@@ -3,8 +3,8 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -71,17 +71,19 @@ class SubscriptionConfirmation extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.subscription-confirmation',
+            html: 'mail.subscription-confirmation',
         );
     }
 
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, Attachment>
      */
 
-//    TODO: add attachment
+//TODO: we need to be able to download PDF or WordDocs
+
+
     /**
      * @return array
      */
