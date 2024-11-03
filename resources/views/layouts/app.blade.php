@@ -59,13 +59,23 @@
 
     @yield('content')
 </main>
-
+{{--FOOTER--}}
 <footer class="bg-white shadow mt-8">
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <p class="text-center text-gray-500">
-            © {{ date('Y') }} {{ config('app.name', 'Book Store') }}. All rights reserved.
-        </p>
+        <div class="flex flex-col items-center justify-center space-y-4">
+            <div class="flex space-x-4 text-sm text-gray-500">
+                <a href="{{ route('policies.privacy') }}" class="hover:text-gray-700">Privacy Policy</a>
+                <span class="text-gray-300">|</span>
+                <a href="{{ route('policies.cookies') }}" class="hover:text-gray-700">Cookie Policy</a>
+                <span class="text-gray-300">|</span>
+                <a href="{{ route('policies.terms') }}" class="hover:text-gray-700">Terms of Service</a>
+            </div>
+            <p class="text-center text-gray-500">
+                © {{ date('Y') }} {{ config('app.name', 'Book Store') }}. All rights reserved.
+            </p>
+        </div>
     </div>
 </footer>
+
 </body>
 </html>

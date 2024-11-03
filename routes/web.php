@@ -6,9 +6,9 @@ use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('app');
-});
+//Route::get('/', function () {
+//    return view('app');
+//});
 
 
 // Email Route - Subscribe
@@ -42,3 +42,21 @@ Route::get('/contact', function () {
 })->name('contact');
 
 //==========================
+// privacy policies
+
+Route::prefix('policies')->group(function () {
+    Route::get('/privacy', function () {
+        return view('policies.privacy');
+    })->name('policies.privacy');
+
+    Route::get('/cookies', function () {
+        return view('policies.cookies');
+    })->name('policies.cookies');
+
+    Route::get('/terms', function () {
+        return view('policies.terms');
+    })->name('policies.terms');
+
+
+});
+
