@@ -1,28 +1,28 @@
 {
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "build": "vite build",
-        "dev": "vite"
-    },
-    "devDependencies": {
-        "@tailwindcss/forms": "^0.5.3",
-        "autoprefixer": "^10.4.12",
-        "axios": "^1.7.4",
-        "concurrently": "^9.0.1",
-        "laravel-vite-plugin": "^1.0",
-        "postcss": "^8.4.31",
-        "tailwindcss": "^3.2.1",
-        "vite": "^5.0"
-    },
-    "dependencies": {
-        "@heroicons/vue": "^2.1.5",
-        "jquery": "^3.7.1",
-        "ziggy-js": "^2.3.1",
-        "music-metadata": "^10.5.1",
-        "music-automaton": "^1.0.1",
-        "web-audio-oscillators": "^2.0.0",
-        "web-audio-sampler": "^1.0.1",
-        "puppeteer": "^23.6.0"
-    }
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.9",
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.7.7",
+    "concurrently": "^9.1.0",
+    "laravel-vite-plugin": "^1.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "vite": "^5.0"
+  },
+  "dependencies": {
+    "@heroicons/vue": "^2.2.0",
+    "jquery": "^3.7.1",
+    "music-automaton": "^1.0.1",
+    "music-metadata": "^10.6.0",
+    "puppeteer": "^23.9.0",
+    "web-audio-oscillators": "^2.0.0",
+    "web-audio-sampler": "^1.0.1",
+    "ziggy-js": "^2.4.1"
+  }
 }
