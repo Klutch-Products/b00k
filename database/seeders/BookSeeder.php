@@ -1,25 +1,25 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Seeders;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Seeder;
 use App\Models\Book;
+use Database\Factories\BookFactory;
 
-class BookFactory extends Factory
+class BookSeeder extends Seeder
 {
-    protected $model = Book::class;
-
-    public function definition()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        return [
-            'title' => $this->faker->sentence(3),
-            'author' => $this->faker->name,
-            'description' => $this->faker->paragraph,
-            'isbn' => $this->faker->isbn13,
-            'publication_date' => $this->faker->date(),
-            'category' => $this->faker->randomElement(['Fiction', 'Non-fiction', 'Science', 'History', 'Technology']),
-            'pages' => $this->faker->numberBetween(100, 1000),
-            'cover_image' => $this->faker->imageUrl(300, 400, 'books'),
-        ];
+        Book::factory()
+            ->count(50)
+            ->create();
+
+        Book::factory()
+            ->count(10)
+            ->featured()
+            ->create();
     }
 }

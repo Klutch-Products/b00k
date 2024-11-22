@@ -14,13 +14,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         User::factory(5)->create();
-
-         Book::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            BookSeeder::class,
         ]);
     }
 }
+
+// class UserSeeder extends Seeder
+// {
+//     public function run(): void
+//     {
+//         User::factory(5)->create();
+
+//         User::factory()->create([
+//             'name' => 'Test User',
+//             'email' => 'test@example.com',
+//         ]);
+//     }
+// }
+
+// class BookSeeder extends Seeder
+// {
+//     public function run(): void
+//     {
+//         Book::factory(10)->create();
+//     }
+// }

@@ -1,5 +1,3 @@
-<?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -39,12 +37,16 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'user', // Default role
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect based on role
+        return $user->isAdmin()
+            ? redirect(route('admin.dashboard', absolute: false))
+            : redirect(route('dashboard', absolute: false));
     }
 }

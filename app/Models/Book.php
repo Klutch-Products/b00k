@@ -19,12 +19,16 @@ class Book extends Model
         'pages',
         'cover_image',
         'publisher_id',
-        'pdf_path'
+        'pdf_path',
+        'price',
+        'is_featured'
+
     ];
 
     protected $casts = [
         'publication_date' => 'date',
         'pages' => 'integer',
+        'is_featured' => 'boolean',
     ];
 
     public function getCoverImageUrlAttribute()
