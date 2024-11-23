@@ -17,14 +17,15 @@ class BookController extends BaseController
 
     public function create(): View
     {
-        return view('books.create');
+        $authors = Author::all();
+        return view('books.create', compact('authors'));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'author' => 'required|max:255',
+            'author_id' => 'required|exists:authors,id' ,
             'description' => 'nullable',
             'isbn' => 'nullable|max:13',
             'publication_date' => 'nullable|date',

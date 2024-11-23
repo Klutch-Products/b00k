@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Author;
 
 class BookFactory extends Factory
 {
@@ -14,7 +15,8 @@ class BookFactory extends Factory
         $categories = ['Fiction', 'Non-Fiction', 'Science', 'Technology', 'Business', 'History', 'Biography'];
         return [
             'title' => $this->faker->sentence(3),
-            'author' => $this->faker->name,
+            // 'author' => $this->faker->name,
+            'author_id' => Author::factory(),
             'description' => $this->faker->paragraphs(3, true),
             'isbn' => $this->faker->isbn13,
             'publication_date' => $this->faker->dateTimeBetween('-5 years', 'now'),

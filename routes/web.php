@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthorController;
 
 // new home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -17,6 +18,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Guest accessible routes
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+
+// Authors
+Route::resource('authors', AuthorController::class);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

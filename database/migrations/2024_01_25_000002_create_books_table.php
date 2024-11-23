@@ -6,24 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('author');
+            $table->foreignId('author_id')->constrained()->onDelete('cascade');
             $table->text('description')->nullable();
-            $table->date('published_at')->nullable();
+            $table->string('isbn', 13)->nullable();
+            $table->date('publication_date')->nullable();
+            $table->string('category')->nullable();
+            $table->integer('pages')->nullable();
+            $table->string('cover_image')->nullable();
+            $table->decimal('price', 8, 2)->nullable();
+            $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('books');
