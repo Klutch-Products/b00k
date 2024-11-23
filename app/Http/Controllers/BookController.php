@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Author; // Add this missing import
+use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use App\Traits\HandlesImages;
+
 
 /**
  * BookController handles all book-related operations
@@ -17,7 +17,7 @@ use App\Traits\HandlesImages;
  */
 class BookController extends BaseController
 {
-    use HandlesImages;
+
 
     /**
      * Display a paginated list of books
@@ -113,25 +113,13 @@ class BookController extends BaseController
 
         // Handle cover image update if new image is uploaded
         if ($request->hasFile('cover_image')) {
-            // Delete old image if it exists
-            if ($book->cover_image) {
-                Storage::disk('public')->delete($book->cover_image);
-            }
-
-            $file = $request->file('cover_image');
-            $filename = Str::slug($validated['title']) . '-' . time() . '.' . $file->getClientOriginalExtension();
-
-            // Store new image
-            $path = $file->storeAs(
-                'books/covers/' . date('Y/m'),
-                $filename,
-                'public'
+            $validated['cover_image'] = $this->storeImage(
+                $request->file('cover_image'),
+                $validated['title'],
+                $book->cover_image
             );
-
-            $validated['cover_image'] = $path;
         }
 
-        // Update book record
         $book->update($validated);
 
         return redirect()->route('books.show', $book)

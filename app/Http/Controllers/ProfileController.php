@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class ProfileController extends Controller
+
+
+class ProfileController extends BaseController
 {
     /**
      * Display the user's profile form.
@@ -26,6 +28,21 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
+        // if the user has a profile picture
+        $validated = $request->validated();
+
+        if ($request->hasFile('profile_picture')) {
+            $validated['profile_picture'] = $this->storeImage(
+                $request->file('profile_picture'),
+                $request->user()->name,
+                $request->user()->profile_picture,
+                'users/profiles'
+            );
+        }
+
+
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {

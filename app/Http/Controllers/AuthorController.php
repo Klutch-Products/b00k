@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+
+class AuthorController extends BaseController
 {
     public function index()
     {
@@ -25,7 +26,18 @@ class AuthorController extends Controller
             'biography' => 'nullable|string',
             'birth_date' => 'nullable|date',
             'nationality' => 'nullable|string|max:255',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        // if the author has a profile image
+        if ($request->hasFile('profile_image')) {
+            $validated['profile_image'] = $this->storeImage(
+                $request->file('profile_image'),
+                $validated['name'],
+                null,
+
+            );
+        }
 
         Author::create($validated);
 
@@ -45,7 +57,18 @@ class AuthorController extends Controller
             'biography' => 'nullable|string',
             'birth_date' => 'nullable|date',
             'nationality' => 'nullable|string|max:255',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        if ($request->hasFile('profile_image')) {
+            $validated['profile_image'] = $this->storeImage(
+                $request->file('profile_image'),
+                $validated['name'],
+                $author->profile_image,
+                'authors/profiles'
+                );
+            }
+            
 
         $author->update($validated);
 

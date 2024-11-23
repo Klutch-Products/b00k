@@ -13,7 +13,8 @@ class Author extends Model
         'name',
         'biography',
         'birth_date',
-        'nationality'
+        'nationality',
+        'profile_image'
     ];
 
     protected $casts = [
@@ -28,5 +29,14 @@ class Author extends Model
     public function publishers()
     {
         return $this->belongsToMany(Publisher::class, 'books');
+    }
+
+    // access the image URL
+    public function getProfileImageUrlAttribute()
+    {
+        if ($this->profile_image) {
+            return asset('storage/' .  $this->profile_image);
+        }
+        return asset('images/default-author.jpg'); // default author image
     }
 }

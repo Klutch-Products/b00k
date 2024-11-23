@@ -39,8 +39,18 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'funds'
+        'funds',
+        'profile_picture'
     ];
+
+    // Accessor for profile picture
+    public function getProfilePictureUrlAttribute()
+    {
+        if ($this->profile_picture) {
+            return asset('storage' . $this->profile_picture);
+        }
+        return asset('images/default-profile.jpg');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

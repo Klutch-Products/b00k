@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('biography')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('profile_image')->nullable();
             $table->timestamps();
         });
     }

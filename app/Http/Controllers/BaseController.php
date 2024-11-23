@@ -2,37 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
-/**
- *
- */
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
+
+
 class BaseController extends Controller
 {
+    use AuthorizesRequests, ValidatesRequests;
+
     /**
-     * @param $image
-     * @param $title
-     * @param $oldImagePath
-     * @return mixed
+     * Store an image file and return the path
+     *
+     * @param mixed $image The uploaded image
+     * @param string $title The title to use for the filename
+     * @param string|null $oldImagePath Path to old image to be deleted
+     * @return string The stored image path
      */
-    protected function storeImage($image, $title, $oldImagePath = null)
+    protected function storeImage($image, string $title, ?string $oldImagePath = null, string $path = 'books/covers'): string
     {
+        // Delete old image if it exists
         if ($oldImagePath) {
             Storage::disk('public')->delete($oldImagePath);
         }
 
-        $extension = $image->getClientOriginalExtension();
-        $filename = Str::slug($title) . '.' . $extension;
+        // Generate filename using title
+        $filename = Str::slug($title) . '-' . time() . '.' . $image->getClientOriginalExtension();
 
-        // Check if a file with this name already exists
-        $counter = 1;
-        while (Storage::disk('public')->exists('book-covers/' . $filename)) {
-            $filename = Str::slug($title) . '-' . $counter . '.' . $extension;
-            $counter++;
-        }
+        // Store in year/month structure
 
-        $path = $image->storeAs('book-covers', $filename, 'public');
-        return $path;
+
+        // save images in different paths
+      return $image->storeAs(
+        $path . '/' . date('Y/m'),
+        $filename,
+        'public'
+      );
     }
 }
