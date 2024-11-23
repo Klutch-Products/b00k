@@ -90,7 +90,7 @@
             <!-- Mobile Categories Dropdown -->
             <div x-data="{ open: false }" class="relative">
                 <button @click="open = !open"
-                        class="text-white hover:text-primary-light block px-3 py-2 text-base font-medium w-full text-left flex justify-between items-center">
+                        class="text-white hover:text-primary-light px-3 py-2 text-base font-medium w-full text-left flex justify-between items-center">
                     Categories
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
