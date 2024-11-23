@@ -7,9 +7,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
 
+// new home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// new home
+
 
 
 
