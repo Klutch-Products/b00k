@@ -6,6 +6,8 @@ use App\Events\NewBookSubscribed;
 use App\Listeners\SendSlackNotification;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
+        Blade::componentNamespace("App\\View\\Components", 'components');
     }
 }

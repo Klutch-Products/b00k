@@ -29,7 +29,7 @@ class SendSlackNotification
                             'text' => "*Book:*\n{$event->bookTitle}"
                         ],
                         [
-                            'type' => 'mrkdwn',
+                            'type' => 'markdown',
                             'text' => "*Subscriber:*\n{$event->subscriberName}"
                         ]
                     ]
