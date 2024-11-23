@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Schema;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -53,4 +55,16 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public static function hasColumn(string $column): bool
+    {
+        try {
+            return Schema::hasColumn('books', $column);
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+
 }
+
