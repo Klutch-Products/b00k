@@ -8,6 +8,7 @@ use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 
+
 // new home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -29,14 +30,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+
+
     // Admin routes
-    // Route::middleware(['role:admin'])
-    //     ->prefix('admin')
-    //     ->group(function () {
-    //         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    //         Route::resource('users', AdminUserController::class);
-    //         Route::resource('books', AdminBookController::class);
-    //     });
+    Route::middleware(['auth', 'role:admin'])->prefix('admin')
+    ->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::resource('admin/books', BookController::class);
+        Route::resource('admin/authors', AuthorController::class);
+
+    });
 
     // Publisher routes
     // Route::middleware(['role:publisher'])
