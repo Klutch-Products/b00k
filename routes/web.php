@@ -12,6 +12,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Guest accessible routes
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
     // User routes
     Route::get('/dashboard', function () {
@@ -19,21 +21,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // Admin routes
-    Route::middleware(['role:admin'])
-        ->prefix('admin')
-        ->group(function () {
-            Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-            Route::resource('users', AdminUserController::class);
-            Route::resource('books', AdminBookController::class);
-        });
+    // Route::middleware(['role:admin'])
+    //     ->prefix('admin')
+    //     ->group(function () {
+    //         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    //         Route::resource('users', AdminUserController::class);
+    //         Route::resource('books', AdminBookController::class);
+    //     });
 
     // Publisher routes
-    Route::middleware(['role:publisher'])
-        ->prefix('publisher')
-        ->group(function () {
-            Route::get('/dashboard', [PublisherController::class, 'dashboard'])->name('publisher.dashboard');
-            Route::resource('books', PublisherBookController::class);
-        });
+    // Route::middleware(['role:publisher'])
+    //     ->prefix('publisher')
+    //     ->group(function () {
+    //         Route::get('/dashboard', [PublisherController::class, 'dashboard'])->name('publisher.dashboard');
+    //         Route::resource('books', PublisherBookController::class);
+    //     });
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
